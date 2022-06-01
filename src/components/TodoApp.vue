@@ -5,25 +5,20 @@
       <input type="text" placeholder="Add New Task..." />
       <button><i class="fa-solid fa-circle-plus"></i></button>
     </form>
-    <ul class="todo-list">
-      <li class="todo-item">
-        <label>
-          <input type="checkbox" />
-          <span>Task 1</span>
-        </label>
-        <button><i class="fa-solid fa-trash"></i></button>
-      </li>
-    </ul>
+    <TodoList></TodoList>
   </div>
 </template>
 <script>
+import TodoList from "./TodoList.vue";
 export default {
-  created() {},
   props: {},
   data() {
     return {};
   },
   methods: {},
+  components: {
+    TodoList
+  }
 };
 </script>
 <style lang="scss">
@@ -42,6 +37,7 @@ export default {
   color: #222;
   form {
     position: relative;
+    margin-bottom: 20px;
     input {
       display: block;
       width: 88%;
@@ -52,9 +48,10 @@ export default {
       font-size: 16px;
       color: #222;
       outline: none;
-      
+      padding-left: 5px;
     }
     button{
+      background-color: white;
     border: none;
     border-radius: 70%;
     padding: 3px 6px;
