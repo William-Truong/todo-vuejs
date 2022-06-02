@@ -1,24 +1,31 @@
 <template lang="">
   <div class="todo-app">
     <h1>Todo List</h1>
-    <form>
-      <input type="text" placeholder="Add New Task..." />
+    <form @submbit.prevent="onsubmit">
+      <input type="text" placeholder="Add New Task..." v-model="todoInput"/>
       <button><i class="fa-solid fa-circle-plus"></i></button>
     </form>
     <TodoList></TodoList>
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import TodoList from "./TodoList.vue";
 export default {
-  props: {},
   data() {
-    return {};
+    return {
+      todoInput: ""
+    };
   },
-  methods: {},
+  methods: {
+    ...mapActions(['handleAddTodo']),
+    onsubmit(){
+      this.handleAddTodo({id: Math.random(),title: this.todoInput,completed: false});
+    }
+  },
   components: {
-    TodoList
-  }
+    TodoList,
+  },
 };
 </script>
 <style lang="scss">
@@ -27,17 +34,21 @@ export default {
   font-family: "Roboto", sans-serif;
 }
 .todo-app {
-  width: 500px;
-  padding: 25px;
-  max-height: 100%;
+  width: 600px;
+  padding: 30px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  background-color: rgba(255, 203, 211, 0.863);
+  background-color: rgba(251, 218, 223, 0.73);
   border-radius: 25px;
   overflow: auto;
   color: #222;
+  padding-right: 18px;
+  h1{
+    color: black;
+  }
   form {
     position: relative;
     margin-bottom: 20px;
+    padding-right: 25px;
     input {
       display: block;
       width: 88%;
@@ -50,18 +61,17 @@ export default {
       outline: none;
       padding-left: 5px;
     }
-    button{
+    button {
       background-color: white;
-    border: none;
-    border-radius: 70%;
-    padding: 3px 6px;
-    font-size: 30px;
-    position: absolute;
-    right: 0;
-    top: 55%;
-    transform: translateY(-50%);
+      border: none;
+     border-radius: 50%;
+      padding: 3px 10px;
+      font-size: 30px;
+      position: absolute;
+      right: 25px;
+      top: 55%;
+      transform: translateY(-50%);
     }
   }
 }
-
 </style>

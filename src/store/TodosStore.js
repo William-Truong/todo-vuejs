@@ -7,6 +7,13 @@ export default createStore({
     mutations: {
         setTodos(state,data){
             state.todos = data;
+        },
+        addTodo(state,todo){
+            state.todos.push(todo);
+        },
+        deleteTodo(state,currentId){
+            let newTodos = state.todos.filter(item => item.id != currentId);
+            state.todos = newTodos;
         }
     },
     actions: {
@@ -16,8 +23,11 @@ export default createStore({
                 commit("setTodos",response.data);
             });
         },
-        deleteTodo(){
-            
+        handleAddTodo({commit},todo){
+            commit("addTodo",todo);
+        },
+        handleDeleteTodo({commit},id){
+            commit("deleteTodo",id);
         }
     }
 })
