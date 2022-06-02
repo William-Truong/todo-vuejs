@@ -8,9 +8,12 @@ export default createStore({
         setTodos(state,data){
             state.todos = data;
         },
-        addTodo(state,todo){
+        async addTodo(state,todo){
             state.todos.push(todo);
-        },async deleteTodo(state,deleteId){
+             const response = await axios.post("https://jsonplaceholder.typicode.com/todos/",todo);
+             console.log(response.data.id)
+        },
+        async deleteTodo(state,deleteId){
             state.todos = state.todos.filter(todo=>todo.id != deleteId)
             await axios.delete(`https://jsonplaceholder.typicode.com/todos/${deleteId}`)
             .then(response => console.log(response))

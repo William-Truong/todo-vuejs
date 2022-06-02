@@ -1,10 +1,10 @@
 <template lang="">
   <div class="todo-app">
     <h1>Todo List</h1>
-    <form @submbit.prevent="onsubmit">
+    <div class="form-input">
       <input type="text" placeholder="Add New Task..." v-model="todoInput"/>
-      <button><i class="fa-solid fa-circle-plus"></i></button>
-    </form>
+      <button @click="onsubmit"><i class="fa-solid fa-circle-plus"></i></button>
+    </div>
     <TodoList></TodoList>
   </div>
 </template>
@@ -20,7 +20,8 @@ export default {
   methods: {
     ...mapActions(['handleAddTodo']),
     onsubmit(){
-      this.handleAddTodo({id: Math.random(),title: this.todoInput,completed: false});
+      this.handleAddTodo({userId: Math.random(),id: Math.random(),title: this.todoInput,completed: false});
+      this.todoInput = ""
     }
   },
   components: {
@@ -45,7 +46,7 @@ export default {
   h1{
     color: black;
   }
-  form {
+  .form-input {
     position: relative;
     margin-bottom: 20px;
     padding-right: 25px;
