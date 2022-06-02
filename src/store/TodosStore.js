@@ -10,11 +10,12 @@ export default createStore({
         },
         addTodo(state,todo){
             state.todos.push(todo);
-        },
-        deleteTodo(state,currentId){
-            let newTodos = state.todos.filter(item => item.id != currentId);
-            state.todos = newTodos;
+        },async deleteTodo(state,deleteId){
+            state.todos = state.todos.filter(todo=>todo.id != deleteId)
+            await axios.delete(`https://jsonplaceholder.typicode.com/todos/${deleteId}`)
+            .then(response => console.log(response))
         }
+        
     },
     actions: {
         getTodoApi({commit}){
@@ -27,7 +28,7 @@ export default createStore({
             commit("addTodo",todo);
         },
         handleDeleteTodo({commit},id){
-            commit("deleteTodo",id);
+            commit("deleteTodo",id)
         }
     }
 })
